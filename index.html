@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Hard</title>
+<meta name="theme-color" content="#6c4cf5">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Study Hard">
+<style>
+:root{--bg:#f6f3ff;--card:#ffffff;--text:#1d1b2e;--muted:#6b6880;--accent:#6c4cf5;--accent2:#ff7a45;--ring:#e4defa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13111f;--card:#1e1b30;--text:#f1eefc;--muted:#a29fbb;--accent:#9a83ff;--accent2:#ff9a6b;--ring:#34304f}}
+:root[data-theme="dark"]{--bg:#13111f;--card:#1e1b30;--text:#f1eefc;--muted:#a29fbb;--accent:#9a83ff;--accent2:#ff9a6b;--ring:#34304f}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 16px 40px;overflow-x:hidden}
+h1{margin:0;font-size:clamp(28px,7vw,44px);text-align:center;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.card{background:var(--card);border-radius:20px;padding:20px;width:100%;max-width:520px;box-shadow:0 6px 24px rgba(80,60,160,.12);text-align:center}
+.quote{min-height:64px;font-size:19px;font-weight:600;line-height:1.4;animation:fade .8s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.count{display:flex;justify-content:center;align-items:baseline;gap:10px;flex-wrap:wrap}
+.count b{font-size:48px;color:var(--accent2);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.count input{background:var(--bg);color:var(--text);border:1px solid var(--ring);border-radius:8px;padding:6px;font:inherit}
+.muted{color:var(--muted);font-size:14px}
+.ringwrap{position:relative;width:220px;height:220px;margin:6px auto}
+.ringwrap svg{transform:rotate(-90deg)}
+.ringwrap .time{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:700;font-variant-numeric:tabular-nums}
+.ringwrap .time small{font-size:13px;color:var(--muted);font-weight:500}
+#prog{transition:stroke-dashoffset 1s linear}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+button{border:0;border-radius:12px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;transition:transform .15s}
+button:hover{transform:translateY(-2px)}
+button.alt{background:var(--ring);color:var(--text)}
+.climb{position:relative;height:150px;overflow:hidden;border-radius:14px;background:linear-gradient(var(--ring),var(--card))}
+.mount{position:absolute;bottom:0;left:0;width:100%;height:100%}
+#rocket{position:absolute;font-size:32px;left:8%;bottom:6px;transition:left 1s linear,bottom 1s linear;animation:wob 1s ease-in-out infinite}
+@keyframes wob{50%{transform:translateY(-4px) rotate(6deg)}}
+.flag{position:absolute;right:7%;top:6px;font-size:26px;animation:wave 1.5s ease-in-out infinite}
+@keyframes wave{50%{transform:rotate(12deg)}}
+.stat{font-size:22px;font-weight:700;color:var(--accent)}
+.confetti{position:fixed;top:-20px;font-size:22px;pointer-events:none;animation:fall 2.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;text-align:left;margin:12px 0;align-items:center;font-size:14px}
+.bar{grid-column:1/-1;height:8px;border-radius:6px;background:var(--ring);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s}
+.row input,.sel{background:var(--bg);color:var(--text);border:1px solid var(--ring);border-radius:8px;padding:5px;font:inherit}
+.row input{width:64px}
+.sel{width:100%;margin:8px 0}
+h2{margin:0 0 6px;font-size:18px}
+.sem{margin-top:14px;font-weight:700;color:var(--accent);text-align:left;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.res h3{font-size:14px;margin:14px 0 4px;text-align:left;color:var(--accent)}
+.res ul{margin:0;padding-left:20px;text-align:left;font-size:14px}
+.res li{margin:6px 0}
+.res a{color:var(--accent);font-weight:600;text-decoration:none}
+</style>
+</head>
+<body>
+<h1>Study Hard. Shine Harder.</h1>
+
+<div class="card"><div class="quote" id="quote"></div></div>
+
+<div class="card">
+  <div class="count"><b id="days">--</b><span>days to go</span></div>
+  <div class="muted">Target date: <input type="date" id="target" value="2026-11-15"></div>
+</div>
+
+<div class="card">
+  <div class="ringwrap">
+    <svg width="220" height="220" viewBox="0 0 220 220">
+      <circle cx="110" cy="110" r="96" fill="none" stroke="var(--ring)" stroke-width="14"/>
+      <circle id="prog" cx="110" cy="110" r="96" fill="none" stroke="var(--accent)" stroke-width="14" stroke-linecap="round" stroke-dasharray="603.2" stroke-dashoffset="0"/>
+    </svg>
+    <div class="time"><span id="clock">25:00</span><small id="mode">Focus session</small></div>
+  </div>
+  <div class="climb" style="margin-top:10px">
+    <svg class="mount" viewBox="0 0 400 150" preserveAspectRatio="none"><polygon points="0,150 120,60 200,110 330,20 400,150" fill="var(--accent)" opacity=".35"/><polygon points="0,150 80,95 170,150" fill="var(--accent2)" opacity=".4"/></svg>
+    <div class="flag">🚩</div><div id="rocket">🚀</div>
+  </div>
+  <div class="btns">
+    <button id="start">Start</button>
+    <button class="alt" id="reset">Reset</button>
+    <button class="alt" id="len">25 / 5 min</button>
+    <button class="alt" id="snd">🔔 Sound: On</button>
+  </div>
+  <p class="muted">Sessions completed: <span class="stat" id="count">0</span></p>
+</div>
+
+<div class="card">
+  <h2>Today's study tracker</h2>
+  <div class="muted">Sessions count toward the subject you pick:</div>
+  <select class="sel" id="subj"></select>
+  <div class="row"><span>Daily goal (hours)</span><input type="number" id="daily" min="1" max="16" step="0.5"><div class="bar"><i id="dbar"></i></div></div>
+  <div class="muted" id="dtxt"></div>
+  <div id="rows"></div>
+  <div class="btns"><button class="alt" id="add15">+15 min</button></div>
+  <p class="muted">Goals are in minutes per subject for today.</p>
+</div>
+
+<div class="card">
+  <h2>Study material</h2>
+  <select class="sel" id="msub"></select>
+  <div style="display:flex;gap:8px"><input class="sel" id="mtxt" placeholder="Add a unit, chapter or note link" style="margin:0"><button id="madd">Add</button></div>
+  <div id="mlist" style="text-align:left;margin-top:10px;max-height:380px;overflow-y:auto"></div>
+  <div class="muted" id="mcount"></div>
+</div>
+
+<div class="card res">
+  <h2>Books and online notes</h2>
+  <select class="sel" id="rsub"></select>
+  <div id="rbox"></div>
+  <p class="muted">Check the edition and list against your own university syllabus.</p>
+</div>
+
+<script>
+var quotes=[
+"Every hour you study today is a favour your future self will thank you for.",
+"Small steps every day beat big plans you never start.",
+"You do not need to be perfect. You need to show up again today.",
+"Tired now, proud later. Keep going.",
+"The exam hall rewards the person who revised one more time.",
+"Discipline is choosing what you want most over what you want now.",
+"One more page. Then one more. That is how toppers are made."
+];
+var qi=0,q=document.getElementById("quote");
+function showQuote(){q.style.animation="none";void q.offsetWidth;q.style.animation="";q.textContent=quotes[qi%quotes.length];qi++}
+showQuote();setInterval(showQuote,6000);
+
+var tgt=document.getElementById("target"),days=document.getElementById("days");
+function upd(){var t=new Date(tgt.value+"T00:00:00"),n=new Date();n.setHours(0,0,0,0);var d=Math.round((t-n)/864e5);days.textContent=isNaN(d)?"--":Math.max(d,0)}
+tgt.addEventListener("change",upd);upd();
+
+var modes=[[25,5],[50,10]],mi=0,focus=true,total=modes[0][0]*60,left=total,timer=null,done=0;
+var clock=document.getElementById("clock"),prog=document.getElementById("prog"),mode=document.getElementById("mode"),rocket=document.getElementById("rocket"),cnt=document.getElementById("count"),startBtn=document.getElementById("start");
+try{done=parseInt(localStorage.getItem("sessions")||"0",10)||0}catch(e){}
+cnt.textContent=done;
+function render(){
+  var m=Math.floor(left/60),s=left%60;clock.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  var f=left/total;prog.style.strokeDashoffset=603.2*(1-f);
+  var p=1-f;rocket.style.left=(8+p*78)+"%";rocket.style.bottom=(6+p*80)+"px";
+}
+function confetti(){var e=["🎉","⭐","✨","📚","💊"];for(var i=0;i<24;i++){var c=document.createElement("div");c.className="confetti";c.textContent=e[i%e.length];c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(c);setTimeout(function(x){x.remove()},3800,c)}}
+function tick(){
+  left--;render();
+  if(left<=0){
+    clearInterval(timer);timer=null;startBtn.textContent="Start";
+    if(focus){done++;cnt.textContent=done;try{localStorage.setItem("sessions",String(done))}catch(e){}confetti();addMin(modes[mi][0])}chime();
+    focus=!focus;total=modes[mi][focus?0:1]*60;left=total;
+    mode.textContent=focus?"Focus session":"Break time";render();
+  }
+}
+startBtn.onclick=function(){
+  if(timer){clearInterval(timer);timer=null;startBtn.textContent="Resume"}
+  else{timer=setInterval(tick,1000);startBtn.textContent="Pause"}
+};
+document.getElementById("reset").onclick=function(){clearInterval(timer);timer=null;focus=true;total=modes[mi][0]*60;left=total;mode.textContent="Focus session";startBtn.textContent="Start";render()};
+document.getElementById("len").onclick=function(){mi=(mi+1)%modes.length;this.textContent=modes[mi][0]+" / "+modes[mi][1]+" min";document.getElementById("reset").click()};
+var sems=[["Semester 5",["Medicinal Chemistry-2"]],["Semester 7",["Instrumental Methods of Analysis","Novel Drug Delivery Systems","Pharmacy Practice","Industrial Pharmacy-2"]]];
+var subs=[],semOf={};sems.forEach(function(g){g[1].forEach(function(s){subs.push(s);semOf[s]=g[0]})});
+function fillSel(el){sems.forEach(function(g){var og=document.createElement("optgroup");og.label=g[0];g[1].forEach(function(s){var o=document.createElement("option");o.textContent=s;og.appendChild(o)});el.appendChild(og)})}
+var store={goals:{},days:{},daily:4,sound:true};
+try{var sv=JSON.parse(localStorage.getItem("tracker")||"null");if(sv){store=sv;store.goals=store.goals||{};store.days=store.days||{}}}catch(e){}
+function save(){try{localStorage.setItem("tracker",JSON.stringify(store))}catch(e){}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+var sel=document.getElementById("subj"),rows=document.getElementById("rows"),daily=document.getElementById("daily");
+fillSel(sel);
+daily.value=store.daily;
+function addMin(m){var k=today();store.days[k]=store.days[k]||{};store.days[k][sel.value]=(store.days[k][sel.value]||0)+m;save();draw()}
+function draw(){
+  var d=store.days[today()]||{},tot=0,h="";
+  subs.forEach(function(s,i){var m=d[s]||0,g=store.goals[s]||60;tot+=m;if(i===0||semOf[s]!==semOf[subs[i-1]])h+='<div class="sem">'+semOf[s]+'</div>';
+    h+='<div class="row"><span>'+s+' <b>'+m+'</b> / </span><input type="number" min="5" step="5" data-s="'+i+'" value="'+g+'"><div class="bar"><i style="width:'+Math.min(100,m/g*100)+'%"></i></div></div>'});
+  rows.innerHTML=h;
+  var dg=store.daily*60;
+  document.getElementById("dbar").style.width=Math.min(100,tot/dg*100)+"%";
+  document.getElementById("dtxt").textContent=(tot>=dg?"Goal reached! Great work. ":"")+tot+" of "+dg+" min studied today";
+}
+rows.addEventListener("change",function(e){var i=e.target.getAttribute("data-s");if(i!==null){store.goals[subs[i]]=Math.max(5,parseInt(e.target.value,10)||60);save();draw()}});
+daily.addEventListener("change",function(){store.daily=Math.max(1,parseFloat(daily.value)||4);save();draw()});
+document.getElementById("add15").onclick=function(){addMin(15)};
+draw();
+var AC=null;
+function mkAC(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume()}catch(e){}}
+startBtn.addEventListener("click",mkAC);
+function chime(){if(!store.sound||!AC)return;try{[660,880,1100].forEach(function(f,i){var o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.connect(g);g.connect(AC.destination);var t=AC.currentTime+i*.18;g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.start(t);o.stop(t+.3)})}catch(e){}}
+var snd=document.getElementById("snd");
+function sndLabel(){snd.textContent="🔔 Sound: "+(store.sound?"On":"Off")}
+snd.onclick=function(){store.sound=!store.sound;save();sndLabel();if(store.sound){mkAC();chime()}};
+store.mat=store.mat||{};
+store.seeded=store.seeded||{};
+var MC2=[
+"UNIT I (10 h): Antihistaminic agents: histamine, receptors and their distribution in the human body",
+"UNIT I: H1-antagonists: Diphenhydramine HCl*, Triprolidine HCl*, Promethazine HCl*, Chlorpheniramine, Cetirizine, Loratadine, Cyproheptadine etc.",
+"UNIT I: H2-antagonists: Cimetidine*, Famotidine, Ranitidine",
+"UNIT I: Gastric proton pump inhibitors: Omeprazole, Lansoprazole, Rabeprazole, Pantoprazole",
+"UNIT I: Anti-neoplastic, alkylating agents: Mechlorethamine*, Cyclophosphamide, Melphalan, Chlorambucil, Busulfan, Thiotepa",
+"UNIT I: Antimetabolites: Mercaptopurine*, Methotrexate*, Thioguanine, Fluorouracil, Floxuridine, Cytarabine, Azathioprine",
+"UNIT I: Antibiotics (Dactinomycin, Daunorubicin, Doxorubicin, Bleomycin), plant products (Etoposide, Vinblastine, Vincristine), miscellaneous (Cisplatin, Mitotane)",
+"UNIT II (10 h): Anti-anginal vasodilators: Amyl nitrite, Nitroglycerin*, Pentaerythritol tetranitrate, Isosorbide dinitrate*, Dipyridamole",
+"UNIT II: Calcium channel blockers: Verapamil, Bepridil, Diltiazem, Nifedipine, Amlodipine, Felodipine, Nicardipine, Nimodipine",
+"UNIT II: Diuretics: carbonic anhydrase inhibitors (Acetazolamide*, Methazolamide, Dichlorphenamide), thiazides (Chlorthiazide*, Hydrochlorothiazide, Hydroflumethiazide, Cyclothiazide)",
+"UNIT II: Diuretics: loop (Furosemide*, Bumetanide, Ethacrynic acid), potassium sparing (Spironolactone, Triamterene, Amiloride), osmotic (Mannitol)",
+"UNIT II: Anti-hypertensive agents: Timolol, Captopril, Lisinopril, Enalapril, Benazepril, Quinapril, Methyldopa*, Clonidine, Guanethidine, Guanabenz, Nitroprusside, Diazoxide, Minoxidil, Reserpine, Hydralazine",
+"UNIT III (10 h): Anti-arrhythmic drugs: Quinidine, Procainamide, Disopyramide phosphate*, Phenytoin, Lidocaine, Tocainide, Mexiletine, Lorcainide, Amiodarone, Sotalol",
+"UNIT III: Anti-hyperlipidemic agents: Clofibrate, Lovastatin, Cholestyramine, Colestipol",
+"UNIT III: Coagulants and anticoagulants: Menadione, Acetomenadione, Warfarin*, Anisindione, Clopidogrel",
+"UNIT III: Drugs used in congestive heart failure: Digoxin, Digitoxin, Nesiritide, Bosentan, Tezosentan",
+"UNIT IV (8 h): Drugs acting on endocrine system: nomenclature, stereochemistry and metabolism of steroids",
+"UNIT IV: Sex hormones: Testosterone, Nandrolone, Progesterone, Oestriol, Oestradiol, Oestrone, Diethylstilbestrol",
+"UNIT IV: Drugs for erectile dysfunction (Sildenafil, Tadalafil) and oral contraceptives (Mifepristone, Norgestril, Levonorgestrel)",
+"UNIT IV: Corticosteroids: Cortisone, Hydrocortisone, Prednisolone, Betamethasone, Dexamethasone",
+"UNIT IV: Thyroid and antithyroid drugs: L-Thyroxine, L-Thyronine, Propylthiouracil, Methimazole",
+"UNIT V (7 h): Antidiabetic agents: insulin and its preparations",
+"UNIT V: Sulfonyl ureas (Tolbutamide*, Chlorpropamide, Glipizide, Glimepiride), biguanides (Metformin)",
+"UNIT V: Thiazolidinediones (Pioglitazone, Rosiglitazone), meglitinides (Repaglinide, Nateglinide), glucosidase inhibitors (Acarbose, Voglibose)",
+"UNIT V: Local anesthetics: SAR of local anesthetics",
+"UNIT V: Benzoic acid derivatives (Cocaine, Hexylcaine, Meprylcaine, Cyclomethycaine, Piperocaine) and amino benzoic acid derivatives (Benzocaine*, Butamben, Procaine*, Butacaine, Propoxycaine, Tetracaine, Benoxinate)",
+"UNIT V: Lidocaine/anilide derivatives (Lignocaine, Mepivacaine, Prilocaine, Etidocaine) and miscellaneous (Phenacaine, Diperodon, Dibucaine*)",
+"BOOKS: Wilson and Giswold's, Foye's Principles, Burger's Medicinal Chemistry, Smith and Williams, Remington's, Martindale, Finar Vol II, Lednicer, Indian Pharmacopoeia, Vogel",
+"NOTE: * means the synthesis of that drug is in the syllabus"
+];
+if(!store.seeded.mc2){store.mat["Medicinal Chemistry-2"]=(store.mat["Medicinal Chemistry-2"]||[]).concat(MC2.map(function(t){return {t:t,d:false}}));store.seeded.mc2=true;save()}
+var msub=document.getElementById("msub"),mbox=document.getElementById("mlist"),mtxt=document.getElementById("mtxt");
+fillSel(msub);
+function drawMat(){
+  var list=store.mat[msub.value]||[],done=0;mbox.innerHTML="";
+  list.forEach(function(it,i){
+    if(it.d)done++;
+    var r=document.createElement("div");r.style.cssText="display:flex;gap:8px;align-items:center;margin:6px 0";
+    var c=document.createElement("input");c.type="checkbox";c.checked=!!it.d;c.setAttribute("data-i",i);
+    var t=document.createElement("span");t.textContent=it.t;t.style.cssText="flex:1;word-break:break-word"+(it.d?";text-decoration:line-through;opacity:.6":"");
+    var x=document.createElement("button");x.className="alt";x.textContent="\u00d7";x.setAttribute("data-x",i);x.style.padding="2px 10px";
+    r.appendChild(c);r.appendChild(t);r.appendChild(x);mbox.appendChild(r);
+  });
+  document.getElementById("mcount").textContent=list.length?done+" of "+list.length+" topics completed":"No material yet. Add your units or chapters above.";
+}
+function addMat(){var v=mtxt.value.trim();if(!v)return;(store.mat[msub.value]=store.mat[msub.value]||[]).push({t:v,d:false});mtxt.value="";save();drawMat()}
+document.getElementById("madd").onclick=addMat;
+mtxt.addEventListener("keydown",function(e){if(e.key==="Enter")addMat()});
+msub.addEventListener("change",drawMat);
+mbox.addEventListener("change",function(e){var i=e.target.getAttribute("data-i");if(i!==null){store.mat[msub.value][i].d=e.target.checked;save();drawMat()}});
+mbox.addEventListener("click",function(e){var i=e.target.getAttribute("data-x");if(i!==null){store.mat[msub.value].splice(i,1);save();drawMat()}});
+drawMat();
+var RES={
+"Medicinal Chemistry-2":{books:["Wilson and Giswold's Textbook of Organic Medicinal and Pharmaceutical Chemistry","Foye's Principles of Medicinal Chemistry","Burger's Medicinal Chemistry (Vol I to IV)","Textbook of Medicinal Chemistry by V. Alagarsamy","Medicinal Chemistry by Ashutosh Kar","The Organic Chemistry of Drug Synthesis by Lednicer"],links:[["DrugBank (drug structures, MOA)","https://go.drugbank.com"],["PubChem (structures, properties)","https://pubchem.ncbi.nlm.nih.gov"]]},
+"Instrumental Methods of Analysis":{books:["Instrumental Methods of Chemical Analysis by Gurdeep Chatwal and Sham Anand","Instrumental Methods of Chemical Analysis by B.K. Sharma","Principles of Instrumental Analysis by Skoog, Holler and Crouch","Practical Pharmaceutical Chemistry Vol II by Beckett and Stenlake","Pharmaceutical Analysis by Kasture et al.","Spectrometric Identification of Organic Compounds by Silverstein"],links:[["NPTEL (video lectures)","https://nptel.ac.in"],["NIST Chemistry WebBook (spectra)","https://webbook.nist.gov"]]},
+"Novel Drug Delivery Systems":{books:["Novel Drug Delivery Systems by Y.W. Chien","Controlled and Novel Drug Delivery by N.K. Jain","Targeted and Controlled Drug Delivery by S.P. Vyas and R.K. Khar","Controlled Drug Delivery: Fundamentals and Applications by Robinson and Lee","Remington: The Science and Practice of Pharmacy"],links:[["NPTEL (video lectures)","https://nptel.ac.in"],["SWAYAM (free courses)","https://swayam.gov.in"]]},
+"Pharmacy Practice":{books:["Textbook of Clinical Pharmacy Practice by Parthasarathi, Nyfort-Hansen and Nahata","Hospital Pharmacy by William E. Hassan","Textbook of Hospital Pharmacy by Allwood and Blackwell","Clinical Pharmacy and Therapeutics by Roger Walker","Pharmacotherapy: A Pathophysiologic Approach by DiPiro"],links:[["WHO (guidelines, essential medicines)","https://www.who.int"],["Pharmacy Council of India","https://www.pci.gov.in"]]},
+"Industrial Pharmacy-2":{books:["Theory and Practice of Industrial Pharmacy by Lachman and Lieberman","Pharmaceutical Production and Management by C.V.S. Subrahmanyam","Pharmaceutical Quality Assurance by Manohar A. Potdar","Pharmaceutical Process Validation by Berry and Nash","Remington: The Science and Practice of Pharmacy"],links:[["CDSCO (Indian drug regulator)","https://cdsco.gov.in"],["ICH guidelines","https://www.ich.org"],["WHO (GMP guidelines)","https://www.who.int"]]}
+};
+var rsub=document.getElementById("rsub"),rbox=document.getElementById("rbox");
+fillSel(rsub);
+function mk(t,x){var e=document.createElement(t);if(x)e.textContent=x;return e}
+function lnk(x,u){var a=mk("a",x);a.href=u;a.target="_blank";a.rel="noopener noreferrer";return a}
+function drawRes(){
+  var s=rsub.value,r=RES[s]||{books:[],links:[]};rbox.innerHTML="";
+  rbox.appendChild(mk("h3","Books"));var ul=mk("ul");
+  r.books.forEach(function(b){ul.appendChild(mk("li",b))});rbox.appendChild(ul);
+  rbox.appendChild(mk("h3","Online notes and tools"));var ul2=mk("ul");
+  r.links.concat([["YouTube lectures on this subject","https://www.youtube.com/results?search_query="+encodeURIComponent(s+" B Pharm lecture")],["Search for notes (PDF)","https://www.google.com/search?q="+encodeURIComponent(s+" B Pharm notes pdf")]]).forEach(function(l){var li=mk("li");li.appendChild(lnk(l[0],l[1]));ul2.appendChild(li)});
+  rbox.appendChild(ul2);
+}
+rsub.addEventListener("change",drawRes);
+drawRes();
+sndLabel();
+render();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
